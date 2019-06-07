@@ -88,7 +88,7 @@ def main():
     if _ALLOW_GUI and args.gui:
         prev_result = read_previous_result(args.boundary_file)
         if prev_result is None or prev_result > args.boundary > t2m:
-            messagebox.show_info('TempMonitor', f'{t2m}°C')
+            messagebox.showinfo('TempMonitor', f'{t2m}°C')
     write_new_result(args.boundary_file, t2m)
 
 
