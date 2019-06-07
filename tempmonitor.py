@@ -15,8 +15,7 @@ def parse_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('place', default='helsinki', nargs='?')
-    parser.add_argument('--no-gui', dest='gui', action='store_false', default=True)
-    parser.add_argument('--boundary', type=float, default=22.0)
+    parser.add_argument('--boundary', type=float, default=None)
     appdata = os.path.join(os.getenv('APPDATA'), 'tempmonitor.txt')
     parser.add_argument('--boundary-file', dest='boundary_file', default=appdata)
     return parser.parse_args()
@@ -85,7 +84,7 @@ def main():
     t2m = t2m_from_xmldict(root)
     print(f'{t2m}°C')
 
-    if _ALLOW_GUI and args.gui:
+    if _ALLOW_GUI and args.boundary is not None:
         prev_result = read_previous_result(args.boundary_file)
         if prev_result is None or prev_result > args.boundary > t2m:
             messagebox.showinfo('TempMonitor', f'{t2m}°C')
